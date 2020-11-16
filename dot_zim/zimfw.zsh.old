@@ -65,11 +65,6 @@ _zimfw_build_init() {
 }
 
 _zimfw_build_login_init() {
-<<<<<<< HEAD
-=======
-  local -Ur zscriptdirs=(${ZIM_HOME} ${${_zscripts%%${ZIM_HOME}/*}:h})
-  local -r zscriptglob=("${^zscriptdirs[@]}/(^*test*/)#*.zsh(|-theme)(N-.)")
->>>>>>> 5fa7d5c (Add files)
   local -r ztarget=${ZIM_HOME}/login_init.zsh
   _zimfw_mv =(
     print -Rn "() {
@@ -84,16 +79,11 @@ _zimfw_build_login_init() {
   fi
 
   # Compile Zsh startup files
-<<<<<<< HEAD
   for zfile in \${1} \${ZDOTDIR:-\${HOME}}/.z(shenv|profile|shrc|login|logout)(N-.); do
-=======
-  for zfile in \${ZDOTDIR:-\${HOME}}/.z(shenv|profile|shrc|login|logout)(N-.); do
->>>>>>> 5fa7d5c (Add files)
     zrecompile -p \${1} \${zfile} || return 1
   done
 
   # Compile Zim scripts
-<<<<<<< HEAD
   for zfile in \${ZIM_HOME}/(^*test*/)#*.zsh(|-theme)(N-.); do
     zrecompile -p \${1} \${zfile} || return 1
   done
@@ -101,13 +91,6 @@ _zimfw_build_login_init() {
   if [[ \${1} != -q ]]; then
     print -P 'Done with compile.'
   fi
-=======
-  for zfile in ${zscriptglob}; do
-    zrecompile -p \${1} \${zfile} || return 1
-  done
-
-  if [[ \${1} != -q ]] print -P 'Done with compile.'
->>>>>>> 5fa7d5c (Add files)
 } \"\${@}\"
 "
   ) ${ztarget}
@@ -123,13 +106,8 @@ zmodule() {
 Add %Bzmodule%b calls to your %B${ZDOTDIR:-${HOME}}/.zimrc%b file to define the modules to be initialized.
 The modules are initialized in the same order they are defined.
 
-<<<<<<< HEAD
   <url>                          Required repository URL or path. The following formats are
                                  equivalent: %Bname%b, %Bzimfw/name%b, %Bhttps://github.com/zimfw/name.git%b.
-=======
-  <url>                          Module absolute path or repository URL. The following URL formats
-                                 are equivalent: %Bname%b, %Bzimfw/name%b, %Bhttps://github.com/zimfw/name.git%b.
->>>>>>> 5fa7d5c (Add files)
   %B-n%b|%B--name%b <module_name>        Set a custom module name. Default: the last component in the <url>.
 
 Repository options:
@@ -163,11 +141,7 @@ Initialization options:
   local ztype=branch zrev=master
   local -i zdisabled=0 zfrozen=0
   local -a zfpaths zfunctions zscripts
-<<<<<<< HEAD
   local zarg
-=======
-  local zarg zdir
->>>>>>> 5fa7d5c (Add files)
   if [[ ${zurl} =~ ^[^:/]+: ]]; then
     zmodule=${zmodule%.git}
   elif [[ ${zurl} != /* ]]; then
@@ -188,15 +162,7 @@ Initialization options:
     zmodule=${1}
     shift
   fi
-<<<<<<< HEAD
   local -r zdir=${ZIM_HOME}/modules/${zmodule}
-=======
-  if [[ ${zurl} == /* ]]; then
-    zdir=${zurl}
-  else
-    zdir=${ZIM_HOME}/modules/${zmodule}
-  fi
->>>>>>> 5fa7d5c (Add files)
   while (( # > 0 )); do
     case ${1} in
       -b|--branch|-t|--tag|-f|--fpath|-a|--autoload|-s|--source)
@@ -333,11 +299,7 @@ _zimfw_compile() {
 }
 
 _zimfw_info() {
-<<<<<<< HEAD
   print -R 'zimfw version: '${_zversion}' (previous commit is c0d7862)'
-=======
-  print -R 'zimfw version: '${_zversion}' (previous commit is 99e6b31)'
->>>>>>> 5fa7d5c (Add files)
   print -R 'ZIM_HOME:      '${ZIM_HOME}
   print -R 'Zsh version:   '${ZSH_VERSION}
   print -R 'System info:   '$(command uname -a)
@@ -381,11 +343,7 @@ _zimfw_upgrade() {
 }
 
 zimfw() {
-<<<<<<< HEAD
   local -r _zversion='1.2.1'
-=======
-  local -r _zversion='1.2.2'
->>>>>>> 5fa7d5c (Add files)
   local -r zusage="Usage: %B${0}%b <action> [%B-q%b|%B-v%b]
 
 Actions:
@@ -524,11 +482,7 @@ fi
     clean) _zimfw_clean_compiled && _zimfw_clean_dumpfile ;;
     clean-compiled) _zimfw_clean_compiled ;;
     clean-dumpfile) _zimfw_clean_dumpfile ;;
-<<<<<<< HEAD
     compile) _zimfw_build_login_init && _zimfw_compile ;;
-=======
-    compile) _zimfw_source_zimrc && _zimfw_build_login_init && _zimfw_compile ;;
->>>>>>> 5fa7d5c (Add files)
     help) print -PR ${zusage} ;;
     info) _zimfw_info ;;
     install|update)
